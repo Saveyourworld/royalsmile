@@ -1,7 +1,9 @@
-import React, { useState } from 'react'; // Added useState import
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, Instagram, CheckCircle, Calendar, Star, Zap, Target, Award } from 'lucide-react';
-import {Menu, X } from "lucide-react";
+import {
+Phone, Mail, Instagram, CheckCircle, Calendar, Star, Zap, Target,
+Award, HelpCircle, ChevronDown, CheckCircle2, XCircle, Info, Menu, X
+} from 'lucide-react';
 
 // --- SHARED CONFIGURATION ---
 const whatsappNumber = "2348080821226";
@@ -18,7 +20,156 @@ hidden: { opacity: 0 },
 visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
 
-// --- SUB-COMPONENT: FOOTER ---
+// --- SUB-COMPONENTS (DEFINED OUTSIDE MAIN APP) ---
+
+const ServiceFlipCard = ({ title, details }) => {
+const [isFlipped, setIsFlipped] = useState(false);
+
+return (
+<motion.div
+variants={fadeInUp}
+className="relative h-[420px] w-full perspective-1000 cursor-pointer"
+onMouseEnter={() => setIsFlipped(true)}
+onMouseLeave={() => setIsFlipped(false)}
+onClick={() => setIsFlipped(!isFlipped)}
+>
+<motion.div
+className="w-full h-full relative preserve-3d"
+animate={{ rotateY: isFlipped ? 180 : 0 }}
+transition={{ duration: 0.6, type: "spring", stiffness: 260, damping: 20 }}
+>
+{/* FRONT SIDE */}
+<div className="absolute inset-0 backface-hidden bg-white/90 backdrop-blur-sm p-8 rounded-[2.5rem] shadow-xl border border-blue-50 flex flex-col items-center justify-center text-center">
+<div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+<CheckCircle size={40} />
+</div>
+<h4 className="text-2xl font-bold text-gray-900 mb-4">{title}</h4>
+<p className="text-blue-500 text-[10px] font-bold uppercase tracking-widest bg-blue-50 px-4 py-2 rounded-full">
+<span className="md:block hidden">Hover for Details</span>
+<span className="md:hidden block">Tap for Details</span>
+</p>
+</div>
+
+{/* BACK SIDE */}
+<div
+className="absolute inset-0 backface-hidden bg-blue-700 p-8 rounded-[2.5rem] shadow-2xl text-white flex flex-col justify-center text-left"
+style={{ transform: 'rotateY(180deg)' }}
+>
+<div className="space-y-5">
+<div>
+<div className="flex items-center gap-2 text-blue-300 mb-1">
+<Zap size={16} />
+<span className="text-[10px] font-black uppercase tracking-tighter">The Procedure</span>
+</div>
+<p className="text-[13px] leading-relaxed opacity-90">{details.procedure}</p>
+</div>
+<div>
+<div className="flex items-center gap-2 text-green-400 mb-1">
+<Target size={16} />
+<span className="text-[10px] font-black uppercase tracking-tighter">Goal</span>
+</div>
+<p className="text-[13px] leading-relaxed opacity-90">{details.goal}</p>
+</div>
+<div className="pt-4 border-t border-blue-500/50">
+<div className="flex items-center gap-2 text-blue-200 mb-1">
+<Award size={16} />
+<span className="text-[10px] font-black uppercase tracking-tighter">RoyalSmile Proficiency</span>
+</div>
+<p className="text-[12px] italic opacity-90">{details.proficiency}</p>
+</div>
+</div>
+</div>
+</motion.div>
+</motion.div>
+);
+};
+
+const MythsVsFacts = () => {
+const comparisons = [
+{ myth: "Hard brushing cleans better.", fact: "Soft circular motions protect enamel. Hard brushing leads to gum recession.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgXChfIttArR7eHrcqTKd-Rtz0tnrnUf4WkA&s" },
+{ myth: "Scaling makes teeth weak.", fact: "Scaling removes tartar that causes bone loss. It actually strengthens your tooth support.", img: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=600" },
+{ myth: "Sugar is the only cause of cavities.", fact: "Starchy foods and poor flossing habits are equally responsible for tooth decay.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCK0yPjeeWXriuMwzTXTZ-ZpqNv0ovCRe1TQ&s" }
+];
+
+return (
+<section id="facts" className="py-24 bg-white">
+<div className="container mx-auto px-6">
+<div className="text-center mb-20">
+<h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Myth Buster</h3>
+<p className="text-blue-600 font-bold uppercase tracking-widest">Refreshing your dental knowledge</p>
+</div>
+<div className="grid lg:grid-cols-3 gap-10">
+{comparisons.map((item, idx) => (
+<motion.div key={idx} whileHover={{ y: -10 }} className="bg-gray-50 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-full">
+<div className="h-48 overflow-hidden relative">
+<img src={item.img} className="w-full h-full object-cover" alt="Dental Fact" />
+<div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+<div className="absolute bottom-4 left-6 flex items-center gap-2 text-white font-bold">
+<Info size={18} className="text-blue-400" /> Clinical Insight
+</div>
+</div>
+<div className="p-8 space-y-6 flex-grow">
+<div className="flex gap-4">
+<XCircle className="text-red-500 shrink-0" size={24} />
+<div>
+<p className="text-xs font-black text-red-400 uppercase tracking-tighter mb-1">The Myth</p>
+<p className="text-gray-800 font-bold">{item.myth}</p>
+</div>
+</div>
+<div className="flex gap-4 bg-green-50/50 p-4 rounded-2xl border border-green-100">
+<CheckCircle2 className="text-green-500 shrink-0" size={24} />
+<div>
+<p className="text-xs font-black text-green-600 uppercase tracking-tighter mb-1">The Fact</p>
+<p className="text-gray-700 text-sm leading-relaxed">{item.fact}</p>
+</div>
+</div>
+</div>
+</motion.div>
+))}
+</div>
+</div>
+</section>
+);
+};
+
+const FAQSection = () => {
+const [activeIndex, setActiveIndex] = useState(null);
+const faqs = [
+{ q: "Is mobile dentistry as safe as a clinic?", a: "Absolutely. RoyalSmile adheres to strict clinical sterilization protocols. We use hospital-grade disinfectants and single-use disposable kits for every patient to ensure 100% safety." },
+{ q: "What do I need to provide at home?", a: "All we need is a small space with access to a power outlet. We bring our own portable dental chair, high-tech lighting, and all clinical equipment required for your procedure." },
+{ q: "How do I pay for the services?", a: "We offer flexible payment options including Bank Transfers, POS on-site, and secure online payments. You only pay after your consultation or procedure is complete." },
+{ q: "Do you treat children and seniors?", a: "Yes! Our mobile setup is actually preferred by seniors and children as it removes the 'scary' clinical atmosphere, making for a much calmer dental experience." }
+];
+
+return (
+<section id="faq" className="py-24 bg-gray-50 overflow-hidden">
+<div className="container mx-auto px-6 max-w-4xl">
+<motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-16">
+<h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Common Concerns</h3>
+<p className="text-blue-600 font-bold uppercase tracking-widest">Everything you need to know before we arrive</p>
+</motion.div>
+<div className="space-y-4">
+{faqs.map((faq, i) => (
+<motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="bg-white rounded-3xl overflow-hidden border border-blue-50 shadow-lg">
+<button onClick={() => setActiveIndex(activeIndex === i ? null : i)} className="w-full p-6 text-left flex justify-between items-center group">
+<span className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors flex items-center gap-3">
+<HelpCircle className="text-blue-500" size={20} /> {faq.q}
+</span>
+<motion.div animate={{ rotate: activeIndex === i ? 180 : 0 }}>
+<ChevronDown className="text-gray-400" />
+</motion.div>
+</button>
+<motion.div initial={false} animate={{ height: activeIndex === i ? "auto" : 0, opacity: activeIndex === i ? 1 : 0 }} className="px-6 overflow-hidden">
+<p className="pb-6 text-gray-600 leading-relaxed border-t border-gray-50 pt-4">{faq.a}</p>
+</motion.div>
+</motion.div>
+))}
+</div>
+</div>
+</section>
+);
+};
+
 const Footer = () => {
 return (
 <footer className="bg-[#0a0f1a] text-white pt-20 pb-10 relative overflow-hidden">
@@ -32,7 +183,6 @@ return (
 </div>
 <p className="text-gray-400 text-lg text-center md:text-left">Clinical Excellence. Mobile Convenience. Bringing the future of dental care to your doorstep.</p>
 </motion.div>
-
 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="space-y-6 text-center md:text-left">
 <h5 className="text-blue-500 font-bold uppercase tracking-widest text-sm">Get In Touch</h5>
 <div className="space-y-4">
@@ -46,7 +196,6 @@ return (
 </a>
 </div>
 </motion.div>
-
 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="space-y-6 text-center md:text-left">
 <h5 className="text-blue-500 font-bold uppercase tracking-widest text-sm">Follow the Journey</h5>
 <div className="flex items-center justify-center md:justify-start gap-4">
@@ -71,349 +220,92 @@ return (
 );
 };
 
-// --- SUB-COMPONENT: SERVICE FLIP CARD ---
-const ServiceFlipCard = ({ title, details }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  return (
-    <motion.div 
-      // Entrance animation for the card itself
-      variants={fadeInUp}
-      className="relative h-[420px] w-full perspective-1000 cursor-pointer"
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
-      onClick={() => setIsFlipped(!isFlipped)} // Essential for mobile tap
-    >
-      <motion.div
-        className="w-full h-full relative preserve-3d"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, type: "spring", stiffness: 260, damping: 20 }}
-      >
-        {/* FRONT SIDE */}
-        <div className="absolute inset-0 backface-hidden bg-white/90 backdrop-blur-sm p-8 rounded-[2.5rem] shadow-xl border border-blue-50 flex flex-col items-center justify-center text-center">
-          <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
-            <CheckCircle size={40} />
-          </div>
-          <h4 className="text-2xl font-bold text-gray-900 mb-4">{title}</h4>
-          <p className="text-blue-500 text-[10px] font-bold uppercase tracking-widest bg-blue-50 px-4 py-2 rounded-full">
-            {/* Dynamic text for mobile/desktop */}
-            <span className="md:block hidden">Hover for Details</span>
-            <span className="md:hidden block">Tap for Details</span>
-          </p>
-        </div>
-
-        {/* BACK SIDE */}
-        <div 
-          className="absolute inset-0 backface-hidden bg-blue-700 p-8 rounded-[2.5rem] shadow-2xl text-white flex flex-col justify-center text-left"
-          style={{ transform: 'rotateY(180deg)' }}
-        >
-          <div className="space-y-5">
-            <div>
-              <div className="flex items-center gap-2 text-blue-300 mb-1">
-                <Zap size={16} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">The Procedure</span>
-              </div>
-              <p className="text-[13px] leading-relaxed opacity-90">{details.procedure}</p>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 text-green-400 mb-1">
-                <Target size={16} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">Goal</span>
-              </div>
-              <p className="text-[13px] leading-relaxed opacity-90">{details.goal}</p>
-            </div>
-            <div className="pt-4 border-t border-blue-500/50">
-              <div className="flex items-center gap-2 text-blue-200 mb-1">
-                <Award size={16} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">RoyalSmile Proficiency</span>
-              </div>
-              <p className="text-[12px] italic opacity-90">{details.proficiency}</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-
 // --- MAIN APP COMPONENT ---
 const App = () => {
-  // 1. ALL STATES AT THE TOP
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const whatsappNumber = "2348080821226";
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hello%20Royal%20Smile,%20I%20would%20like%20to%20book%20a%20consultation.`;
+const allServices = [
+{ title: "Scaling & Polishing", details: { procedure: "Ultrasonic removal of plaque/calculus followed by stain-removal polishing.", goal: "Prevents gum disease and restores natural smoothness.", proficiency: "High-frequency portable tech ensures a pain-free office-grade clean." } },
+{ title: "Teeth Whitening", details: { procedure: "Application of hydrogen peroxide gel activated by mobile LED light.", goal: "Brightens teeth by up to 8 shades in a single home session.", proficiency: "We use calibrated enamel-safe formulas for zero sensitivity." } },
+{ title: "Gum Treatment", details: { procedure: "Deep cleaning and therapeutic scaling to target sub-gingival bacteria.", goal: "Stops bleeding, reduces inflammation, and prevents tooth loss.", proficiency: "Specialized clinical hygiene tools for thorough home care." } },
+{ title: "Denture Services", details: { procedure: "Precision digital measurements and custom prosthetic fabrication.", goal: "Restores bite functionality and facial aesthetics.", proficiency: "Multiple home-fitting trials for a perfect 'Royal' fit." } },
+{ title: "Braces / Ortho", details: { procedure: "Diagnostic alignment assessment and installation of corrective appliances.", goal: "Corrects bite issues and creates a straight smile.", proficiency: "Mobile monitoring ensures orthodontic progress without clinic trips." } },
+{ title: "Dental Checkups", details: { procedure: "Comprehensive 20-point oral exam including cancer screening.", goal: "Early detection of decay and custom health roadmapping.", proficiency: "High-definition mobile cameras used for patient education." } },
+{ title: "Oral Surgery", details: { procedure: "Minor extractions and localized surgical procedures.", goal: "Relieves pain and removes non-restorable infected teeth.", proficiency: "Sterile mobile environment meeting clinical safety standards." } },
+{ title: "Free Consultations", details: { procedure: "Professional virtual or in-person assessment of oral needs.", goal: "Understand options and costs with zero pressure.", proficiency: "Transparent advice tailored to your lifestyle." } }
+];
 
-  // 2. ALL DATA ARRAYS
-  const allServices = [
-    { title: "Scaling & Polishing", details: { procedure: "Ultrasonic removal of plaque/calculus followed by stain-removal polishing.", goal: "Prevents gum disease and restores natural smoothness.", proficiency: "High-frequency portable tech ensures a pain-free office-grade clean." } },
-    { title: "Teeth Whitening", details: { procedure: "Application of hydrogen peroxide gel activated by mobile LED light.", goal: "Brightens teeth by up to 8 shades in a single home session.", proficiency: "We use calibrated enamel-safe formulas for zero sensitivity." } },
-    { title: "Gum Treatment", details: { procedure: "Deep cleaning and therapeutic scaling to target sub-gingival bacteria.", goal: "Stops bleeding, reduces inflammation, and prevents tooth loss.", proficiency: "Specialized clinical hygiene tools for thorough home care." } },
-    { title: "Denture Services", details: { procedure: "Precision digital measurements and custom prosthetic fabrication.", goal: "Restores bite functionality and facial aesthetics.", proficiency: "Multiple home-fitting trials for a perfect 'Royal' fit." } },
-    { title: "Braces / Ortho", details: { procedure: "Diagnostic alignment assessment and installation of corrective appliances.", goal: "Corrects bite issues and creates a straight smile.", proficiency: "Mobile monitoring ensures orthodontic progress without clinic trips." } },
-    { title: "Dental Checkups", details: { procedure: "Comprehensive 20-point oral exam including cancer screening.", goal: "Early detection of decay and custom health roadmapping.", proficiency: "High-definition mobile cameras used for patient education." } },
-    { title: "Oral Surgery", details: { procedure: "Minor extractions and localized surgical procedures.", goal: "Relieves pain and removes non-restorable infected teeth.", proficiency: "Sterile mobile environment meeting clinical safety standards." } },
-    { title: "Free Consultations", details: { procedure: "Professional virtual or in-person assessment of oral needs.", goal: "Understand options and costs with zero pressure.", proficiency: "Transparent advice tailored to your lifestyle." } }
-  ];
+return (
+<div className="font-sans text-gray-900 bg-white selection:bg-blue-100">
 
-  return (
-    <div className="font-sans text-gray-900 bg-white selection:bg-blue-100">
-      
-      {/* --- NAVIGATION --- */}
-      <nav className="sticky top-0 bg-white/90 backdrop-blur-md z-50 shadow-sm border-b border-gray-100">
-        <div className="container mx-auto flex justify-between items-center p-4 md:px-10">
-          
-          {/* LOGO */}
-          <div className="flex items-center gap-2 cursor-pointer min-w-fit">
-            <img 
-              src="/logo.png" 
-              alt="Logo" 
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-blue-50" 
-            />
-            <h1 className="text-xl md:text-2xl font-extrabold text-blue-700 tracking-tight">
-              Royal<span className="text-gray-900">Smile</span>
-            </h1>
-          </div>
+{/* --- NAVIGATION --- */}
+<nav className="sticky top-0 bg-white/90 backdrop-blur-md z-50 shadow-sm border-b border-gray-100">
+<div className="container mx-auto flex justify-between items-center p-4 md:px-10">
+<div className="flex items-center gap-2 cursor-pointer min-w-fit">
+<img src="/logo.png" alt="Logo" className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-blue-50" />
+<h1 className="text-xl md:text-2xl font-extrabold text-blue-700 tracking-tight">Royal<span className="text-gray-900">Smile</span></h1>
+</div>
+<div className="hidden md:flex gap-10 font-bold text-gray-500">
+{[{ name: "About", link: "#about" }, { name: "Services", link: "#services" }, { name: "Results", link: "#gallery" }].map((item) => (
+<a key={item.name} href={item.link} className="hover:text-blue-600 transition-colors relative group">
+{item.name}
+<span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full rounded-full"></span>
+</a>
+))}
+</div>
+<div className="flex items-center gap-3">
+<a href={whatsappLink} className="bg-blue-600 text-white px-5 py-2 md:px-8 md:py-2.5 rounded-full font-bold text-xs md:text-sm shadow-lg hover:bg-blue-700 transition-all">
+<span className="md:inline hidden">Book Appointment</span>
+<span className="md:hidden inline">Book Now</span>
+</a>
+<button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 text-gray-600 hover:text-blue-700 transition-colors">
+{isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+</button>
+</div>
+</div>
+{isMenuOpen && (
+<motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="md:hidden bg-white border-t border-gray-100 overflow-hidden">
+<div className="flex flex-col p-6 gap-6 font-bold text-gray-700">
+<a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">About</a>
+<a href="#facts" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Myths/Facts</a>
+<a href="#gallery" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Results</a>
+<a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">FAQ</a>
 
-          {/* DESKTOP MENU */}
-          <div className="hidden md:flex gap-10 font-bold text-gray-500">
-            {[{ name: "About", link: "#about" }, { name: "Services", link: "#services" }, { name: "Results", link: "#gallery" }].map((item) => (
-              <a key={item.name} href={item.link} className="hover:text-blue-600 transition-colors relative group">
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full rounded-full"></span>
-              </a>
-            ))}
-          </div>
-
-          {/* RIGHT SIDE ACTIONS */}
-          <div className="flex items-center gap-3">
-            <a 
-              href={whatsappLink} 
-              className="bg-blue-600 text-white px-5 py-2 md:px-8 md:py-2.5 rounded-full font-bold text-xs md:text-sm shadow-lg hover:bg-blue-700 transition-all"
-            >
-              <span className="md:inline hidden">Book Appointment</span>
-              <span className="md:hidden inline">Book Now</span>
-            </a>
-
-            {/* Mobile Menu Icon */}
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-600 hover:text-blue-700 transition-colors"
-            >
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-
-        {/* MOBILE DROPDOWN */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
-          >
-            <div className="flex flex-col p-6 gap-6 font-bold text-gray-700">
-              <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">About</a>
-              <a href="#services" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Services</a>
-              <a href="#gallery" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Results</a>
-            </div>
-          </motion.div>
-        )}
-      </nav>
-
-      {/* --- HERO SECTION STARTS HERE --- */}
+</div>
+</motion.div>
+)}
+</nav>
 
 {/* --- HERO SECTION --- */}
-
 <header className="relative h-[750px] flex items-center overflow-hidden">
-
-  {/* Background Image with a Smooth Zoom Animation */}
-
-  <motion.div 
-
-    initial={{ scale: 1.1, opacity: 0 }}
-
-    animate={{ scale: 1, opacity: 1 }}
-
-    transition={{ duration: 1.5, ease: "easeOut" }}
-
-    className="absolute inset-0 z-0"
-
-  >
-
-    <img 
-
-      src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=2000" 
-
-      alt="Dentist and patient in a home setting" 
-
-      className="w-full h-full object-cover"
-
-    />
-
-    {/* Refined Gradient Overlay for better readability */}
-
-    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent"></div>
-
-  </motion.div>
-
-
-
-  <div className="container mx-auto px-6 relative z-10">
-
-    <motion.div 
-
-      initial="hidden"
-
-      animate="visible"
-
-      variants={{
-
-        hidden: { opacity: 0 },
-
-        visible: {
-
-          opacity: 1,
-
-          transition: {
-
-            staggerChildren: 0.2, // This makes elements appear one after another
-
-            delayChildren: 0.3
-
-          }
-
-        }
-
-      }}
-
-      className="max-w-2xl"
-
-    >
-
-      {/* 1. Badge Animation */}
-
-      <motion.span 
-
-        variants={{
-
-          hidden: { opacity: 0, x: -20 },
-
-          visible: { opacity: 1, x: 0 }
-
-        }}
-
-        className="inline-block text-blue-600 font-bold uppercase tracking-widest text-xs md:text-sm bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 shadow-sm"
-
-      >
-
-        Mobile Dental Care
-
-      </motion.span>
-
-
-
-      {/* 2. Headline Animation */}
-
-      <motion.h2 
-
-        variants={{
-
-          hidden: { opacity: 0, y: 30 },
-
-          visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-
-        }}
-
-        className="text-5xl md:text-7xl font-extrabold mt-6 leading-tight text-gray-900 tracking-tight"
-
-      >
-
-        A Royal Smile in the <br /> 
-
-        <span className="text-blue-700">Comfort of Your Home.</span>
-
-      </motion.h2>
-
-
-
-      {/* 3. Paragraph Animation */}
-
-      <motion.p 
-
-        variants={{
-
-          hidden: { opacity: 0, y: 20 },
-
-          visible: { opacity: 1, y: 0 }
-
-        }}
-
-        className="mt-6 text-lg md:text-xl text-gray-600 font-medium leading-relaxed"
-
-      >
-
-        Experience clinical-grade dental care without leaving your living room. 
-
-        Professional scaling, polishing, whitening, and more brought directly to your doorstep.
-
-      </motion.p>
-
-
-
-      {/* 4. Button Animation with a subtle "pulse" or hover pop */}
-
-      <motion.div 
-
-        variants={{
-
-          hidden: { opacity: 0, scale: 0.8 },
-
-          visible: { opacity: 1, scale: 1 }
-
-        }}
-
-        className="mt-10"
-
-      >
-
-        <motion.a 
-
-          href={whatsappLink} 
-
-          whileHover={{ scale: 1.05, boxShadow: "0px 20px 30px rgba(34, 197, 94, 0.3)" }}
-
-          whileTap={{ scale: 0.95 }}
-
-          className="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-green-600 transition-colors shadow-xl"
-
-        >
-
-          <Calendar size={24} /> 
-
-          <span>Book Now via WhatsApp</span>
-
-        </motion.a>
-
-      </motion.div>
-
-    </motion.div>
-
-  </div>
-
+<motion.div initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }} className="absolute inset-0 z-0">
+<img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=2000" alt="Hero" className="w-full h-full object-cover" />
+<div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent"></div>
+</motion.div>
+<div className="container mx-auto px-6 relative z-10">
+<motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-2xl">
+<motion.span variants={fadeInUp} className="inline-block text-blue-600 font-bold uppercase tracking-widest text-xs md:text-sm bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 shadow-sm">Mobile Dental Care</motion.span>
+<motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-extrabold mt-6 leading-tight text-gray-900 tracking-tight">A Royal Smile in the <br /><span className="text-blue-700">Comfort of Your Home.</span></motion.h2>
+<motion.p variants={fadeInUp} className="mt-6 text-lg md:text-xl text-gray-600 font-medium leading-relaxed">Experience clinical-grade dental care without leaving your living room. Professional scaling, polishing, whitening, and more brought directly to your doorstep.</motion.p>
+<motion.div variants={fadeInUp} className="mt-10">
+<motion.a href={whatsappLink} whileHover={{ scale: 1.05, boxShadow: "0px 20px 30px rgba(34, 197, 94, 0.3)" }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-green-600 transition-colors shadow-xl">
+<Calendar size={24} /> <span>Book Now via WhatsApp</span>
+</motion.a>
+</motion.div>
+</motion.div>
+</div>
 </header>
 
 {/* ABOUT & MISSION */}
 <section id="about" className="py-20 bg-white">
 <div className="container mx-auto px-6">
-<motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} className="flex justify-center mb-16">
+<motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="flex justify-center mb-16">
 <div className="relative">
 <div className="absolute -inset-4 bg-blue-100 rounded-full blur-2xl opacity-70"></div>
 <img src="/smile.PNG" className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-8 border-white shadow-2xl" alt="Radiant Smile" onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&q=80&w=800"; }} />
 </div>
 </motion.div>
-<motion.div variants={staggerContainer} initial="hidden" whileInView="visible" className="grid md:grid-cols-2 gap-12">
+<motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-2 gap-12">
 <motion.div variants={fadeInUp} className="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-sm">
 <h3 className="text-3xl font-bold mb-6 text-blue-800 flex items-center gap-3"><span className="w-2 h-8 bg-blue-600 rounded-full"></span> About RoyalSmile</h3>
 <p className="text-gray-600 text-lg">RoyalSmile Mobile Dental Care removes the "dentist office anxiety" by bringing elite clinical equipment to you.</p>
@@ -426,9 +318,23 @@ const App = () => {
 </div>
 </section>
 
-
-
-
+{/* SERVICES */}
+<section id="services" className="relative py-24 bg-gray-50 overflow-hidden">
+<motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 0.05 }} transition={{ duration: 1.5 }} className="absolute inset-0 z-0 grayscale">
+<img src="https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover" alt="Background" />
+</motion.div>
+<div className="container mx-auto px-6 relative z-10">
+<motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
+<h3 className="text-4xl md:text-5xl font-extrabold text-gray-900">Clinical Procedures</h3>
+<p className="text-blue-600 font-bold uppercase tracking-widest mt-4">Professional Dental Care Brought to You</p>
+</motion.div>
+<motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+{allServices.map((service, index) => (
+<ServiceFlipCard key={index} title={service.title} details={service.details} />
+))}
+</motion.div>
+</div>
+</section>
 
 {/* GALLERY */}
 <section id="gallery" className="py-24 bg-white overflow-hidden">
@@ -438,144 +344,70 @@ const App = () => {
 <p className="text-blue-600 uppercase tracking-widest">Real Results, Royal Smiles</p>
 </div>
 <div className="grid md:grid-cols-2 gap-12">
-{/* Procedure 1 */}
-<motion.div variants={fadeInUp} initial="hidden" whileInView="visible" className="bg-white p-6 rounded-[2rem] shadow-2xl border border-blue-50 overflow-hidden">
-<h4 className="text-xl font-bold mb-6">Teeth Whitening</h4>
+{[
+{ title: "Teeth Whitening", b: "/whitening b.jpg", a: "/whitening a.jpg" },
+{ title: "Scaling and Polishing", b: "/scaling b.jpg", a: "/scaling a.jpg" },
+{ title: "Denture", b: "/denture b.jpg", a: "/denture a.jpg" },
+{ title: "Composite Build-up", b: "/composite b.jpg", a: "/composite a.jpg" }
+].map((item, i) => (
+<motion.div key={i} variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-white p-6 rounded-[2rem] shadow-2xl border border-blue-50 overflow-hidden">
+<h4 className="text-xl font-bold mb-6">{item.title}</h4>
 <div className="grid grid-cols-2 gap-6 relative">
 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-blue-100 rounded-full z-10 flex items-center justify-center shadow-sm text-blue-400 font-bold italic">VS</div>
 <div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
-<img src="/whitening b.jpg" className="w-full h-full object-cover" alt="Before" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=Before"; }} />
+<img src={item.b} className="w-full h-full object-cover" alt="Before" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=Before"; }} />
 <div className="absolute bottom-2 left-2 bg-black/50 text-white text-[10px] px-2 py-1 rounded">BEFORE</div>
 </div>
 <div className="rounded-2xl overflow-hidden aspect-[4/3] relative ring-4 ring-blue-500/20">
-<img src="/whitening a.jpg" className="w-full h-full object-cover" alt="After" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=After"; }} />
+<img src={item.a} className="w-full h-full object-cover" alt="After" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=After"; }} />
 <div className="absolute bottom-2 left-2 bg-blue-600 text-white text-[10px] px-2 py-1 rounded">AFTER</div>
 </div>
 </div>
 </motion.div>
-
-{/* Procedure 2 */}
-<motion.div variants={fadeInUp} initial="hidden" whileInView="visible" className="bg-white p-6 rounded-[2rem] shadow-2xl border border-blue-50 overflow-hidden">
-<h4 className="text-xl font-bold mb-6">Scaling and Polishing</h4>
-<div className="grid grid-cols-2 gap-6 relative">
-<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-blue-100 rounded-full z-10 flex items-center justify-center shadow-sm text-blue-400 font-bold italic">VS</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
-<img src="/scaling b.jpg" className="w-full h-full object-cover" alt="Before" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=Before"; }} />
-<div className="absolute bottom-2 left-2 bg-black/50 text-white text-[10px] px-2 py-1 rounded">BEFORE</div>
-</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative ring-4 ring-blue-500/20">
-<img src="/scaling a.jpg" className="w-full h-full object-cover" alt="After" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=After"; }} />
-<div className="absolute bottom-2 left-2 bg-blue-600 text-white text-[10px] px-2 py-1 rounded">AFTER</div>
-</div>
-</div>
-</motion.div>
-
-{/* Procedure 3 */}
-<motion.div variants={fadeInUp} initial="hidden" whileInView="visible" className="bg-white p-6 rounded-[2rem] shadow-2xl border border-blue-50 overflow-hidden">
-<h4 className="text-xl font-bold mb-6">Denture</h4>
-<div className="grid grid-cols-2 gap-6 relative">
-<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-blue-100 rounded-full z-10 flex items-center justify-center shadow-sm text-blue-400 font-bold italic">VS</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
-<img src="/denture b.jpg" className="w-full h-full object-cover" alt="Before" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=Before"; }} />
-<div className="absolute bottom-2 left-2 bg-black/50 text-white text-[10px] px-2 py-1 rounded">BEFORE</div>
-</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative ring-4 ring-blue-500/20">
-<img src="/denture a.jpg" className="w-full h-full object-cover" alt="After" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=After"; }} />
-<div className="absolute bottom-2 left-2 bg-blue-600 text-white text-[10px] px-2 py-1 rounded">AFTER</div>
-</div>
-</div>
-</motion.div>
-
-{/* Procedure 4 */}
-<motion.div variants={fadeInUp} initial="hidden" whileInView="visible" className="bg-white p-6 rounded-[2rem] shadow-2xl border border-blue-50 overflow-hidden">
-<h4 className="text-xl font-bold mb-6">Composite Build-up</h4>
-<div className="grid grid-cols-2 gap-6 relative">
-<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-blue-100 rounded-full z-10 flex items-center justify-center shadow-sm text-blue-400 font-bold italic">VS</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
-<img src="/composite b.jpg" className="w-full h-full object-cover" alt="Before" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=Before"; }} />
-<div className="absolute bottom-2 left-2 bg-black/50 text-white text-[10px] px-2 py-1 rounded">BEFORE</div>
-</div>
-<div className="rounded-2xl overflow-hidden aspect-[4/3] relative ring-4 ring-blue-500/20">
-<img src="/composite a.jpg" className="w-full h-full object-cover" alt="After" onError={(e) => { e.target.src = "https://placehold.co/400x300?text=After"; }} />
-<div className="absolute bottom-2 left-2 bg-blue-600 text-white text-[10px] px-2 py-1 rounded">AFTER</div>
-</div>
-</div>
-</motion.div>
-
+))}
 </div>
 </div>
 </section>
 
-{/* --- TESTIMONIALS SECTION --- */}
+<MythsVsFacts />
+
+{/* TESTIMONIALS SECTION */}
 <section className="relative py-24 bg-blue-700 overflow-hidden">
-  {/* Decorative Background Elements */}
-  <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full blur-[120px] opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
-  <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 rounded-full blur-[150px] opacity-10 translate-x-1/3 translate-y-1/3"></div>
-
-  <div className="container mx-auto px-4 md:px-6 relative z-10">
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-center mb-16"
-    >
-      <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Patient Experiences</h3>
-      <div className="w-24 h-1.5 bg-green-400 mx-auto rounded-full"></div>
-    </motion.div>
-
-    <motion.div 
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      /* Grid Config: 2 columns on mobile, 3 on tablets, 5 on large screens */
-      className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6"
-    >
-      {[
-        { name: "Sarah J.", img: "/petty.jpg", text: "The home service was amazing. Professional and very gentle!", initial: "S" },
-        { name: "Anna M.", img: "/betty.jpg", text: "Teeth whitening results are better than expected. Great care.", initial: "A" },
-        { name: "David O.", img: "/da.jpg", text: "Prompt and efficient. Scaling was painless and thorough.", initial: "D" },
-        { name: "Grace E.", img: "/sis.jpg", text: "Bringing the clinic to my doorstep saved me so much time.", initial: "G" },
-        { name: "Agnes P.", img: "/ma.jpg", text: "RoyalSmile truly lives up to its name. Premium service.", initial: "V" }
-      ].map((review, index) => (
-        <motion.div 
-          key={index}
-          variants={fadeInUp}
-          whileHover={{ y: -5 }}
-          className="bg-white p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] text-gray-800 shadow-xl relative group flex flex-col items-center text-center h-full"
-        >
-          {/* Subtle Quote Mark */}
-          <span className="absolute top-2 right-4 text-4xl text-blue-50 font-serif opacity-50 select-none">“</span>
-          
-          <div className="mb-4 relative">
-            <div className="absolute -inset-1 bg-blue-100 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img 
-              src={review.img} 
-              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md relative z-10 object-cover" 
-              alt={review.name}
-              onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${review.initial}&background=DBEAFE&color=1E40AF`; }}
-            />
-          </div>
-
-          <div className="mb-2">
-            <h4 className="font-bold text-sm md:text-base text-blue-900">{review.name}</h4>
-            <div className="flex text-yellow-400 justify-center">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={10} fill="currentColor" className="md:w-3 md:h-3" />
-              ))}
-            </div>
-          </div>
-          
-          <p className="text-gray-600 text-[10px] md:text-xs leading-relaxed italic line-clamp-4">
-            "{review.text}"
-          </p>
-        </motion.div>
-      ))}
-    </motion.div>
-  </div>
+<div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full blur-[120px] opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+<div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 rounded-full blur-[150px] opacity-10 translate-x-1/3 translate-y-1/3"></div>
+<div className="container mx-auto px-4 md:px-6 relative z-10">
+<motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+<h3 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Patient Experiences</h3>
+<div className="w-24 h-1.5 bg-green-400 mx-auto rounded-full"></div>
+</motion.div>
+<motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+{[
+{ name: "Sarah J.", img: "/petty.jpg", text: "The home service was amazing. Professional and very gentle!", initial: "S" },
+{ name: "Anna M.", img: "/betty.jpg", text: "Teeth whitening results are better than expected. Great care.", initial: "A" },
+{ name: "David O.", img: "/da.jpg", text: "Prompt and efficient. Scaling was painless and thorough.", initial: "D" },
+{ name: "Grace E.", img: "/sis.jpg", text: "Bringing the clinic to my doorstep saved me so much time.", initial: "G" },
+{ name: "Agnes P.", img: "/ma.jpg", text: "RoyalSmile truly lives up to its name. Premium service.", initial: "V" }
+].map((review, index) => (
+<motion.div key={index} variants={fadeInUp} whileHover={{ y: -5 }} className="bg-white p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] text-gray-800 shadow-xl relative group flex flex-col items-center text-center h-full">
+<span className="absolute top-2 right-4 text-4xl text-blue-50 font-serif opacity-50 select-none">“</span>
+<div className="mb-4 relative">
+<div className="absolute -inset-1 bg-blue-100 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<img src={review.img} className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md relative z-10 object-cover" alt={review.name} onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${review.initial}&background=DBEAFE&color=1E40AF`; }} />
+</div>
+<div className="mb-2">
+<h4 className="font-bold text-sm md:text-base text-blue-900">{review.name}</h4>
+<div className="flex text-yellow-400 justify-center">
+{[...Array(5)].map((_, i) => ( <Star key={i} size={10} fill="currentColor" className="md:w-3 md:h-3" /> ))}
+</div>
+</div>
+<p className="text-gray-600 text-[10px] md:text-xs leading-relaxed italic line-clamp-4">"{review.text}"</p>
+</motion.div>
+))}
+</motion.div>
+</div>
 </section>
 
-
+<FAQSection />
 <Footer />
 </div>
 );
