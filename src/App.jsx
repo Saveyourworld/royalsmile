@@ -51,7 +51,7 @@ return (
 <h5 className="text-blue-500 font-bold uppercase tracking-widest text-sm">Follow the Journey</h5>
 <div className="flex items-center justify-center md:justify-start gap-4">
 {[
-{ icon: <Instagram size={24} />, link: "https://instagram.com/royalsmile" },
+{ icon: <Instagram size={24} />, link: "https://www.instagram.com/royalsmile329?igsh=MTRuZnVra3cxbmk5aw==" },
 { icon: <div className="font-bold text-lg">f</div>, link: "https://facebook.com/royalsmile" },
 { icon: <Phone size={24} />, link: whatsappLink },
 { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-1.13-.32-2.34-.14-3.33.44-.97.57-1.63 1.54-1.77 2.65-.12 1.02.2 2.06.87 2.85.67.81 1.66 1.31 2.69 1.4 1.25.12 2.54-.43 3.32-1.4.67-.84.99-1.92.93-2.99-.05-3.63-.01-7.26-.01-10.88z"/></svg>, link: "https://www.tiktok.com/@royalsmile529?_r=1&_t=ZS-93c9PdNB2jY" }
@@ -425,109 +425,8 @@ const App = () => {
 </motion.div>
 </div>
 </section>
-{/* --- SERVICES SECTION --- */}
-
-<section id="services" className="relative py-24 bg-gray-50 overflow-hidden">
-
-  {/* Blended Background Image - Subtle animation */}
-
-  <motion.div 
-
-    initial={{ opacity: 0 }}
-
-    whileInView={{ opacity: 0.05 }}
-
-    transition={{ duration: 1.5 }}
-
-    className="absolute inset-0 z-0 grayscale"
-
-  >
-
-    <img 
-
-      src="https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=2000" 
-
-      className="w-full h-full object-cover" 
-
-      alt="Background" 
-
-    />
-
-  </motion.div>
 
 
-
-  <div className="container mx-auto px-6 relative z-10">
-
-    <motion.div 
-
-      initial={{ opacity: 0, y: 20 }}
-
-      whileInView={{ opacity: 1, y: 0 }}
-
-      viewport={{ once: true }}
-
-      transition={{ duration: 0.6 }}
-
-      className="text-center mb-16"
-
-    >
-
-      <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900">Clinical Procedures</h3>
-
-      <p className="text-blue-600 font-bold uppercase tracking-widest mt-4">
-
-        Professional Dental Care Brought to You
-
-      </p>
-
-    </motion.div>
-
-
-
-    {/* The "Alive" Grid: Cards stagger in as you scroll */}
-
-    <motion.div 
-
-      variants={staggerContainer}
-
-      initial="hidden"
-
-      whileInView="visible"
-
-      viewport={{ once: true, amount: 0.1 }} // Triggers when 10% of the section is visible
-
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-
-    >
-
-      {allServices.map((service, index) => (
-
-        <motion.div 
-
-          key={index} 
-
-          variants={fadeInUp}
-
-          // Adding a hover lift effect to make individual cards feel responsive
-
-          whileHover={{ y: -10 }} 
-
-          className="w-full"
-
-        >
-
-          <ServiceFlipCard title={service.title} details={service.details} />
-
-        </motion.div>
-
-      ))}
-
-    </motion.div>
-
-  </div>
-
-</section>
 
 
 
@@ -607,128 +506,74 @@ const App = () => {
 </div>
 </section>
 
-{/* --- TESTIMONIALS --- */}
-
+{/* --- TESTIMONIALS SECTION --- */}
 <section className="relative py-24 bg-blue-700 overflow-hidden">
+  {/* Decorative Background Elements */}
+  <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full blur-[120px] opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+  <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 rounded-full blur-[150px] opacity-10 translate-x-1/3 translate-y-1/3"></div>
 
-  <div className="container mx-auto px-6 relative z-10">
-
+  <div className="container mx-auto px-4 md:px-6 relative z-10">
     <motion.div 
-
-      initial={{ opacity: 0, y: 30 }}
-
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-
       viewport={{ once: true }}
-
-      className="text-center text-white mb-16"
-
+      className="text-center mb-16"
     >
-
-      <h3 className="text-4xl md:text-5xl font-extrabold mb-4">Patient Experiences</h3>
-
+      <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Patient Experiences</h3>
       <div className="w-24 h-1.5 bg-green-400 mx-auto rounded-full"></div>
-
     </motion.div>
-
-
 
     <motion.div 
-
       variants={staggerContainer}
-
       initial="hidden"
-
       whileInView="visible"
-
-      viewport={{ once: true, amount: 0.2 }}
-
-      className="grid md:grid-cols-2 gap-10"
-
+      viewport={{ once: true, amount: 0.1 }}
+      /* Grid Config: 2 columns on mobile, 3 on tablets, 5 on large screens */
+      className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6"
     >
-
-      {/* Review 1 */}
-
-      <motion.div 
-
-        variants={fadeInUp}
-
-        whileHover={{ y: -10 }}
-
-        className="bg-white p-10 rounded-[2.5rem] text-gray-800 shadow-2xl relative"
-
-      >
-
-        <span className="absolute top-6 right-10 text-8xl text-blue-50 font-serif opacity-50">“</span>
-
-        <div className="flex items-center gap-5 mb-8">
-
-          <img src="/petty.jpg" className="w-20 h-20 rounded-full border-4 border-white shadow-lg" alt="Sarah" onError={(e) => { e.target.src = "https://i.pravatar.cc/150?u=sarah"; }} />
-
-          <div>
-
-            <h4 className="font-bold text-2xl text-blue-900">Sarah J.</h4>
-
-            <div className="flex text-yellow-400">
-
-              {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
-
-            </div>
-
+      {[
+        { name: "Sarah J.", img: "/petty.jpg", text: "The home service was amazing. Professional and very gentle!", initial: "S" },
+        { name: "Anna M.", img: "/betty.jpg", text: "Teeth whitening results are better than expected. Great care.", initial: "A" },
+        { name: "David O.", img: "/da.jpg", text: "Prompt and efficient. Scaling was painless and thorough.", initial: "D" },
+        { name: "Grace E.", img: "/sis.jpg", text: "Bringing the clinic to my doorstep saved me so much time.", initial: "G" },
+        { name: "Agnes P.", img: "/ma.jpg", text: "RoyalSmile truly lives up to its name. Premium service.", initial: "V" }
+      ].map((review, index) => (
+        <motion.div 
+          key={index}
+          variants={fadeInUp}
+          whileHover={{ y: -5 }}
+          className="bg-white p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] text-gray-800 shadow-xl relative group flex flex-col items-center text-center h-full"
+        >
+          {/* Subtle Quote Mark */}
+          <span className="absolute top-2 right-4 text-4xl text-blue-50 font-serif opacity-50 select-none">“</span>
+          
+          <div className="mb-4 relative">
+            <div className="absolute -inset-1 bg-blue-100 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <img 
+              src={review.img} 
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md relative z-10 object-cover" 
+              alt={review.name}
+              onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${review.initial}&background=DBEAFE&color=1E40AF`; }}
+            />
           </div>
 
-        </div>
-
-        <p className="text-gray-600 text-lg italic leading-relaxed">"The convenience of having my scaling done at home was amazing. RoyalSmile is professional, timely, and very gentle!"</p>
-
-      </motion.div>
-
-
-
-      {/* Review 2 */}
-
-      <motion.div 
-
-        variants={fadeInUp}
-
-        whileHover={{ y: -10 }}
-
-        className="bg-white p-10 rounded-[2.5rem] text-gray-800 shadow-2xl relative"
-
-      >
-
-        <span className="absolute top-6 right-10 text-8xl text-blue-50 font-serif opacity-50">“</span>
-
-        <div className="flex items-center gap-5 mb-8">
-
-          <img src="/betty.jpg" className="w-20 h-20 rounded-full border-4 border-white shadow-lg" alt="Anna" onError={(e) => { e.target.src = "https://i.pravatar.cc/150?u=anna"; }} />
-
-          <div>
-
-            <h4 className="font-bold text-2xl text-blue-900">Anna M.</h4>
-
-            <div className="flex text-yellow-400">
-
-              {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
-
+          <div className="mb-2">
+            <h4 className="font-bold text-sm md:text-base text-blue-900">{review.name}</h4>
+            <div className="flex text-yellow-400 justify-center">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={10} fill="currentColor" className="md:w-3 md:h-3" />
+              ))}
             </div>
-
           </div>
-
-        </div>
-
-        <p className="text-gray-600 text-lg italic leading-relaxed">"Excellent service! My teeth whitening results are better than I expected. They explained every step of the procedure."</p>
-
-      </motion.div>
-
+          
+          <p className="text-gray-600 text-[10px] md:text-xs leading-relaxed italic line-clamp-4">
+            "{review.text}"
+          </p>
+        </motion.div>
+      ))}
     </motion.div>
-
   </div>
-
 </section>
-
-
-
 
 
 <Footer />
