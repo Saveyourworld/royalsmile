@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import AppointmentForm from './AppointmentForm.jsx';
+import DentalBlog from './DentalBlog.jsx';
+import TreatmentVideo from './TreatmentVideo.jsx';
 import {
 Phone, Mail, Instagram, CheckCircle, Calendar, Star, Zap, Target,
 Award, HelpCircle, ChevronDown, CheckCircle2, XCircle, Info, Menu, X
@@ -73,7 +76,7 @@ style={{ transform: 'rotateY(180deg)' }}
 <div className="pt-4 border-t border-blue-500/50">
 <div className="flex items-center gap-2 text-blue-200 mb-1">
 <Award size={16} />
-<span className="text-[10px] font-black uppercase tracking-tighter">RoyalSmile Proficiency</span>
+<span className="text-[10px] font-black uppercase tracking-tighter">Professional Approach</span>
 </div>
 <p className="text-[12px] italic opacity-90">{details.proficiency}</p>
 </div>
@@ -135,10 +138,10 @@ return (
 const FAQSection = () => {
 const [activeIndex, setActiveIndex] = useState(null);
 const faqs = [
-{ q: "Is mobile dentistry as safe as a clinic?", a: "Absolutely. RoyalSmile adheres to strict clinical sterilization protocols. We use hospital-grade disinfectants and single-use disposable kits for every patient to ensure 100% safety." },
-{ q: "What do I need to provide at home?", a: "All we need is a small space with access to a power outlet. We bring our own portable dental chair, high-tech lighting, and all clinical equipment required for your procedure." },
-{ q: "How do I pay for the services?", a: "We offer flexible payment options including Bank Transfers, POS on-site, and secure online payments. You only pay after your consultation or procedure is complete." },
-{ q: "Do you treat children and seniors?", a: "Yes! Our mobile setup is actually preferred by seniors and children as it removes the 'scary' clinical atmosphere, making for a much calmer dental experience." }
+{ q: "Is mobile dentistry as safe as a clinic?", a: "Home dental care may be appropriate for selected services when the practitioner can provide the necessary equipment, infection control and assessment. Some treatments must be performed in a clinic or hospital." },
+{ q: "What do I need to provide at home?", a: "Requirements depend on the procedure. Our team will discuss the setting, space, power, safety and equipment needed before confirming a home visit." },
+{ q: "How do I pay for the services?", a: "Please ask the team to confirm service fees, travel charges, accepted payment methods and payment timing before your visit." },
+{ q: "Do you treat children and seniors?", a: "We welcome enquiries for children and older adults. A qualified clinician will confirm whether a home visit is appropriate for each patient and service." }
 ];
 
 return (
@@ -225,14 +228,14 @@ const App = () => {
 const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 const allServices = [
-{ title: "Scaling & Polishing", details: { procedure: "Ultrasonic removal of plaque/calculus followed by stain-removal polishing.", goal: "Prevents gum disease and restores natural smoothness.", proficiency: "High-frequency portable tech ensures a pain-free office-grade clean." } },
-{ title: "Teeth Whitening", details: { procedure: "Application of hydrogen peroxide gel activated by mobile LED light.", goal: "Brightens teeth by up to 8 shades in a single home session.", proficiency: "We use calibrated enamel-safe formulas for zero sensitivity." } },
-{ title: "Gum Treatment", details: { procedure: "Deep cleaning and therapeutic scaling to target sub-gingival bacteria.", goal: "Stops bleeding, reduces inflammation, and prevents tooth loss.", proficiency: "Specialized clinical hygiene tools for thorough home care." } },
+{ title: "Scaling & Polishing", details: { procedure: "Ultrasonic removal of plaque/calculus followed by stain-removal polishing.", goal: "Prevents gum disease and restores natural smoothness.", proficiency: "Professional assessment and portable equipment where clinically appropriate." } },
+{ title: "Teeth Whitening", details: { procedure: "Application of hydrogen peroxide gel activated by mobile LED light.", goal: "Aims to improve tooth shade; results vary based on individual teeth and treatment suitability.", proficiency: "A dental professional will assess suitability and discuss possible sensitivity." } },
+{ title: "Gum Treatment", details: { procedure: "Deep cleaning and therapeutic scaling to target sub-gingival bacteria.", goal: "Addresses gum health concerns with a plan based on examination.", proficiency: "Specialized clinical hygiene tools for thorough home care." } },
 { title: "Denture Services", details: { procedure: "Precision digital measurements and custom prosthetic fabrication.", goal: "Restores bite functionality and facial aesthetics.", proficiency: "Multiple home-fitting trials for a perfect 'Royal' fit." } },
-{ title: "Braces / Ortho", details: { procedure: "Diagnostic alignment assessment and installation of corrective appliances.", goal: "Corrects bite issues and creates a straight smile.", proficiency: "Mobile monitoring ensures orthodontic progress without clinic trips." } },
-{ title: "Dental Checkups", details: { procedure: "Comprehensive 20-point oral exam including cancer screening.", goal: "Early detection of decay and custom health roadmapping.", proficiency: "High-definition mobile cameras used for patient education." } },
-{ title: "Oral Surgery", details: { procedure: "Minor extractions and localized surgical procedures.", goal: "Relieves pain and removes non-restorable infected teeth.", proficiency: "Sterile mobile environment meeting clinical safety standards." } },
-{ title: "Free Consultations", details: { procedure: "Professional virtual or in-person assessment of oral needs.", goal: "Understand options and costs with zero pressure.", proficiency: "Transparent advice tailored to your lifestyle." } }
+{ title: "Braces / Ortho", details: { procedure: "Initial orthodontic consultation and discussion of appropriate clinic-based treatment.", goal: "Corrects bite issues and creates a straight smile.", proficiency: "Braces installation and many follow-up procedures require a dental clinic." } },
+{ title: "Dental Checkups", details: { procedure: "Dental consultation and oral health assessment according to clinical need.", goal: "Early detection of decay and custom health roadmapping.", proficiency: "High-definition mobile cameras used for patient education." } },
+{ title: "Oral Surgery", details: { procedure: "Assessment and referral or treatment planning for surgical needs.", goal: "Relieves pain and removes non-restorable infected teeth.", proficiency: "Surgical procedures may require a suitably equipped dental clinic or hospital." } },
+{ title: "Consultation Enquiries", details: { procedure: "Enquiry about assessment options, availability and any consultation fees.", goal: "Discuss suitable care options and receive guidance about fees.", proficiency: "Transparent advice tailored to your lifestyle." } }
 ];
 
 return (
@@ -246,7 +249,7 @@ return (
 <h1 className="text-xl md:text-2xl font-extrabold text-blue-700 tracking-tight">Royal<span className="text-gray-900">Smile</span></h1>
 </div>
 <div className="hidden md:flex gap-10 font-bold text-gray-500">
-{[{ name: "About", link: "#about" }, { name: "Services", link: "#services" }, { name: "Results", link: "#gallery" }].map((item) => (
+{[{ name: "About", link: "#about" }, { name: "Services", link: "#services" }, { name: "Results", link: "#gallery" }, { name: "Book", link: "#appointment" }, { name: "Blog", link: "#blog" }].map((item) => (
 <a key={item.name} href={item.link} className="hover:text-blue-600 transition-colors relative group">
 {item.name}
 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full rounded-full"></span>
@@ -254,7 +257,7 @@ return (
 ))}
 </div>
 <div className="flex items-center gap-3">
-<a href={whatsappLink} className="bg-blue-600 text-white px-5 py-2 md:px-8 md:py-2.5 rounded-full font-bold text-xs md:text-sm shadow-lg hover:bg-blue-700 transition-all">
+<a href="#appointment" className="bg-blue-600 text-white px-5 py-2 md:px-8 md:py-2.5 rounded-full font-bold text-xs md:text-sm shadow-lg hover:bg-blue-700 transition-all">
 <span className="md:inline hidden">Book Appointment</span>
 <span className="md:hidden inline">Book Now</span>
 </a>
@@ -269,6 +272,8 @@ return (
 <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">About</a>
 <a href="#facts" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Myths/Facts</a>
 <a href="#gallery" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Results</a>
+<a href="#appointment" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Book Appointment</a>
+<a href="#blog" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">Dental Blog</a>
 <a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600 text-lg border-b border-gray-50 pb-2">FAQ</a>
 
 </div>
@@ -277,7 +282,7 @@ return (
 </nav>
 
 {/* --- HERO SECTION --- */}
-<header className="relative h-[750px] flex items-center overflow-hidden">
+<header className="relative min-h-[680px] py-20 flex items-center overflow-hidden">
 <motion.div initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }} className="absolute inset-0 z-0">
 <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=2000" alt="Hero" className="w-full h-full object-cover" />
 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent"></div>
@@ -286,10 +291,10 @@ return (
 <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-2xl">
 <motion.span variants={fadeInUp} className="inline-block text-blue-600 font-bold uppercase tracking-widest text-xs md:text-sm bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 shadow-sm">Mobile Dental Care</motion.span>
 <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-extrabold mt-6 leading-tight text-gray-900 tracking-tight">A Royal Smile in the <br /><span className="text-blue-700">Comfort of Your Home.</span></motion.h2>
-<motion.p variants={fadeInUp} className="mt-6 text-lg md:text-xl text-gray-600 font-medium leading-relaxed">Experience clinical-grade dental care without leaving your living room. Professional scaling, polishing, whitening, and more brought directly to your doorstep.</motion.p>
+<motion.p variants={fadeInUp} className="mt-6 text-lg md:text-xl text-gray-600 font-medium leading-relaxed">Skip unnecessary traffic, crowded waiting areas and travel costs. Ask about convenient dental appointments at home with qualified professionals, for services suited to mobile care.</motion.p>
 <motion.div variants={fadeInUp} className="mt-10">
-<motion.a href={whatsappLink} whileHover={{ scale: 1.05, boxShadow: "0px 20px 30px rgba(34, 197, 94, 0.3)" }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-green-600 transition-colors shadow-xl">
-<Calendar size={24} /> <span>Book Now via WhatsApp</span>
+<motion.a href="#appointment" whileHover={{ scale: 1.05, boxShadow: "0px 20px 30px rgba(34, 197, 94, 0.3)" }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-green-600 transition-colors shadow-xl">
+<Calendar size={24} /> <span>Request a Dental Appointment</span>
 </motion.a>
 </motion.div>
 </motion.div>
@@ -317,6 +322,15 @@ return (
 </motion.div>
 </div>
 </section>
+
+{/* WHY HOME DENTAL CARE */}
+<section className="bg-blue-50 py-20 px-6"><div className="container mx-auto"><p className="text-center text-sm font-bold uppercase tracking-widest text-blue-700">Why choose RoyalSmile?</p><h3 className="mx-auto mt-3 max-w-4xl text-center text-4xl font-extrabold text-slate-900">Your time matters. So does your smile.</h3><div className="mt-10 grid gap-6 md:grid-cols-3">{[
+{ title: 'Avoid traffic and long queues', text: 'Spend less time travelling and waiting. Ask about appropriate dental services delivered at your location.' },
+{ title: 'Comfort that fits your day', text: 'Enquire about convenient care in familiar surroundings, with appointment times confirmed by our team.' },
+{ title: 'Professional attention, not guesswork', text: 'A suitably qualified dental practitioner should assess your needs, explain your options, and advise when clinic treatment is safer.' }
+].map(item => <div key={item.title} className="rounded-3xl bg-white p-8 shadow-sm"><h4 className="text-xl font-extrabold text-blue-900">{item.title}</h4><p className="mt-4 leading-7 text-slate-600">{item.text}</p></div>)}</div><p className="mt-8 text-center text-sm text-slate-600">Home visits are subject to location, professional availability, clinical suitability, and applicable fees.</p></div></section>
+
+<AppointmentForm />
 
 {/* SERVICES */}
 <section id="services" className="relative py-24 bg-gray-50 overflow-hidden">
@@ -369,6 +383,8 @@ return (
 </div>
 </section>
 
+<TreatmentVideo />
+
 <MythsVsFacts />
 
 {/* TESTIMONIALS SECTION */}
@@ -407,7 +423,9 @@ return (
 </div>
 </section>
 
+<DentalBlog />
 <FAQSection />
+<div className="bg-blue-700 px-6 py-14 text-center text-white"><h3 className="text-3xl font-extrabold">Ready to talk to a dental professional?</h3><p className="mx-auto mt-3 max-w-2xl text-blue-100">Tell us what you need and we’ll discuss the next appropriate step.</p><a className="mt-6 inline-flex rounded-xl bg-green-500 px-9 py-4 text-lg font-extrabold text-white hover:bg-green-600" href="#appointment">Request an Appointment</a></div>
 <Footer />
 </div>
 );
