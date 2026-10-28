@@ -1,3 +1,4 @@
+
 {
   "name": "royalsmile-web",
   "private": true,
@@ -10,12 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@tailwindcss/postcss": "^4.1.18",
     "framer-motion": "^12.33.0",
     "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
-    "@emailjs/browser": "^4.4.1",
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
